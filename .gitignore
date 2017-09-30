@@ -1,7 +1,0 @@
-*
-!*.yaml
-!scenes
-!automation
-!input_select
-secrets.yaml
-known_devices.yaml
