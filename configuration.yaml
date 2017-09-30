@@ -1,0 +1,131 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 46.210708
+  longitude: 6.15
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 373
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Zurich
+frontend:
+  themes:
+    bordeaux:
+      primary-color: "#87060f"
+      aper-blue-400: "#87060f"
+    minimal:
+      dark-primary-color: "#192231"
+      primary-color: "#98878f"
+      light-primary-color: "#98878f"
+      paper-toggle-button-checked-ink-color: "#494e6b"
+      paper-toggle-button-checked-button-color: "#494e6b"
+      paper-toggle-button-checked-bar-color: "#494e6b"
+      paper-slider-knob-color: "#494e6b"
+      paper-slider-knob-start-color: "#494e6b"
+      paper-slider-pin-color: "#494e6b"
+      paper-slider-active-color: "#494e6b"
+    stormy_hues:
+      dark-primary-color: "#192231"
+      primary-color: "#98878f"
+      light-primary-color: "#98878f"
+      paper-toggle-button-checked-ink-color: "#494e6b"
+      paper-toggle-button-checked-button-color: "#494e6b"
+      paper-toggle-button-checked-bar-color: "#494e6b"
+      paper-slider-knob-color: "#494e6b"
+      paper-slider-knob-start-color: "#494e6b"
+      paper-slider-pin-color: "#494e6b"
+      paper-slider-active-color: "#494e6b"
+    vintage:
+      dark-primary-color: "#373f27"
+      primary-color: "#636b46"
+      light-primary-color: "#e9e7da"
+      paper-toggle-button-checked-ink-color: "#cda34f"
+      paper-toggle-button-checked-button-color: "#cda34f"
+      paper-toggle-button-checked-bar-color: "#cda34f"
+      paper-slider-knob-color: "#cda34f"
+      paper-slider-knob-start-color: "#cda34f"
+      paper-slider-pin-color: "#cda34f"
+      paper-slider-active-color: "#cda34f"
+    done1:
+      dark-primary-color: "#565656"
+      primary-color: "#C09F80"
+      light-primary-color: "#D7CEC7"
+      paper-toggle-button-checked-ink-color: "#76323F"
+      paper-toggle-button-checked-button-color: "#76323F"
+      paper-toggle-button-checked-bar-color: "#76323F"
+      paper-slider-knob-color: "#76323F"
+      paper-slider-knob-start-color: "#76323F"
+      paper-slider-pin-color: "#76323F"
+      paper-slider-active-color: "#76323F"
+      paper-slider-secondary-color: "#FFE0B2"
+
+config:
+
+http:
+  api_password: !secret http_password
+updater:
+  include_used_components: true
+
+discovery:
+
+conversation:
+
+recorder:
+  purge_days: 5
+
+history:
+
+logbook:
+
+sun:
+
+sensor weather:
+  platform: yr
+
+tts:
+  platform: google
+  language: 'fr'
+
+automation old: !include_dir_merge_list automation
+input_select: !include_dir_merge_named input_select
+
+device_tracker:
+  - platform: nmap_tracker
+    hosts: 192.168.1.1/24
+    scan_options: " --privileged -sP "
+    home_interval: 5
+  - platform: trackr
+    username: g.garnier@mphp.net
+    password: !secret trackr_password
+
+telegram_bot:
+   - platform: polling
+     api_key: !secret telegram_api
+    #  url: home.pitiwi.com
+     allowed_chat_ids:
+       - !secret telegram_allowed_chat_id_zotac
+#
+notify:
+  - platform: telegram
+    name: Zotacbot
+    chat_id: !secret telegram_allowed_chat_id_zotac
+  - name: html5
+    platform: html5
+    gcm_api_key: !secret gcm_api_key
+    gcm_sender_id: !secret gcm_sender_id
+
+#google:
+#  client_id: !secret google_client_id
+#  client_secret: !secret google_client_id_secret
+
+lametric:
+  client_id: !secret lametric_client_id
+  client_secret: !secret lametric_client_id_secret
+
+# camera:
+#   - platform: mjpeg
+#     mjpeg_url: !secret camera_mjpeg_url
+#     username: !secret camera_username
+#     password: !secret camera_password
