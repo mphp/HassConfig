@@ -1,6 +1,7 @@
 *
 !*.yaml
 !scenes
-!.gitignore
+!automation
+!input_select
 secrets.yaml
 known_devices.yaml

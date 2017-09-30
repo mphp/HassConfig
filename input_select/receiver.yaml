@@ -1,0 +1,7 @@
+input_select_receiver:
+  name: Receiver
+  options:
+    - None
+    - Video
+    - Music
+    - PS4
